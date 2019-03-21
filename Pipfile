@@ -1,0 +1,50 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+Django = "*"
+pytz = "*"
+django-environ = "*"
+"argon2_cffi" = "*"
+# Database PostgreSQL Adapter
+psycopg2-binary = "*"
+# Celery
+celery = "*"
+django_celery_results = "*"
+django-templated-email = "*"
+# RestFramework
+coreapi = "*"
+Markdown = "*"
+djangorestframework = "*"
+djangorestframework_simplejwt = "*"
+django-cors-headers = "*"
+drf-yasg = "*"
+# Redis
+django-redis = "*"
+redis = "*"
+pylint-common = "*"
+pylint-django = "*"
+questionnaire = "*"
+gunicorn = "*"
+django-modeltranslation = "*"
+django-ordered-model = "*"
+pillow = "*"
+
+[dev-packages]
+django-extensions = "*"
+Werkzeug = "*"
+django-debug-toolbar = "*"
+ipython = "*"
+django-silk = "*"
+# Query Counting
+django-querycount = "*"
+nplusone = "*"
+
+[requires]
+python_full_version = "3.7"
+
+[scripts]
+"start:dev" = "python manage.py runserver_plus 0.0.0.0:8000 --setting=config.settings.development"
+"start:prod" = "python manage.py runserver 0.0.0.0:8000 --setting=config.settings.production"
