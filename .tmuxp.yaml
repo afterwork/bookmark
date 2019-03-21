@@ -1,0 +1,16 @@
+session_name: andys-amq-backend
+start_directory: ./
+before_script: pipenv install --dev --skip-lock # ensure dev deps install
+shell_command_before:
+- '[ -d `pipenv --venv` ] && source `pipenv --venv`/bin/activate && reset'
+windows:
+- window_name: server
+  focus: true
+  panes:
+  - pipenv run start:dev
+- window_name: shell
+  panes:
+  - python manage.py shell_plus
+- window_name: terminal
+  panes:
+  - ''
