@@ -68,7 +68,7 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     'corsheaders',  # https://github.com/ottoyiu/django-cors-headers
-    
+    'django_telegram_login',  # https://github.com/dmytrostriletskyi/django-telegram-login
     'rest_framework',  # http://www.django-rest-framework.org/
     'drf_yasg',  # https://drf-yasg.readthedocs.io/
 ]
@@ -305,3 +305,4 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = 'users.User'
 APPEND_SLASH = False
+
