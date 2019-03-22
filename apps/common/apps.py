@@ -6,8 +6,8 @@ from . import signals
 
 
 class CommonConfig(AppConfig):
-    name = 'apps.common'
-    label = 'common'
+    name = "apps.common"
+    label = "common"
 
     def ready(self):
         # connection_created.connect(signals.database_init_signal)

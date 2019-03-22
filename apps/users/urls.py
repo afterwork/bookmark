@@ -8,7 +8,7 @@ router = SimpleRouter(trailing_slash=False)
 router.register("users", viewset=views.UserViewSet)
 
 urlpatterns = [
-                  path("users/login", TokenObtainSlidingView.as_view(), name="token_obtain"),
-                  path("users/token/refresh", TokenRefreshSlidingView.as_view(), name="token_refresh"),
-                  path("users/login/telegram", views.TelegramLoginView.as_view(), name="telegram_login")
-              ] + router.urls
+    path("users/login", TokenObtainSlidingView.as_view(), name="token_obtain"),
+    path("users/token/refresh", TokenRefreshSlidingView.as_view(), name="token_refresh"),
+    path("users/login/telegram", views.TelegramLoginView.as_view(), name="telegram_login"),
+] + router.urls

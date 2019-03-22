@@ -49,7 +49,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin, BaseModel):
- 
+
     username = models.EmailField(
         _("Username"),
         db_index=True,
@@ -108,4 +108,3 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
         the user's real name, we return their username instead.
         """
         return self.username
- 

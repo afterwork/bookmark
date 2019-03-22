@@ -18,11 +18,12 @@ class TimeStampedModel(models.Model):
         # be ordered in reverse-chronological order. We can override this on a
         # per-model basis as needed, but reverse-chronological is a good
         # default ordering for most models.
-        ordering = ['-created_at', '-updated_at']
+        ordering = ["-created_at", "-updated_at"]
 
 
 class UniquePrimaryKeyModel(models.Model):
     """Model that provides unique non-editable primary key"""
+
     id = models.UUIDField(primary_key=True, editable=False, default=uuid4)
 
     class Meta:

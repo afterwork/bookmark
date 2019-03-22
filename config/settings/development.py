@@ -5,45 +5,40 @@ from .base import *
 
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
-TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
+TEMPLATES[0]["OPTIONS"]["debug"] = DEBUG
 CORS_ORIGIN_ALLOW_ALL = True
 # DJANGO EXTENSIONS
 # ------------------------------------------------------------------------------
-INSTALLED_APPS += ['django_extensions', ]
+INSTALLED_APPS += ["django_extensions"]
 
 # DEBUG TOOLBAR
 # ------------------------------------------------------------------------------
-INSTALLED_APPS += ['debug_toolbar', ]
-MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
+INSTALLED_APPS += ["debug_toolbar"]
+MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
 
-INTERNAL_IPS = ['127.0.0.1', '10.0.2.2', ]
+INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
 # tricks to have debug toolbar when developing with docker
-if os.environ.get('DJANGO_USE_DOCKER') == 'yes':
+if os.environ.get("DJANGO_USE_DOCKER") == "yes":
     ip = socket.gethostbyname(socket.gethostname())
-    INTERNAL_IPS += [ip[:-1] + '1']
+    INTERNAL_IPS += [ip[:-1] + "1"]
 
 DEBUG_TOOLBAR_CONFIG = {
-    'DISABLE_PANELS'       : [
-        'debug_toolbar.panels.redirects.RedirectsPanel',
-    ],
-    'SHOW_TEMPLATE_CONTEXT': True,
+    "DISABLE_PANELS": ["debug_toolbar.panels.redirects.RedirectsPanel"],
+    "SHOW_TEMPLATE_CONTEXT": True,
 }
 
 # Mail settings
 # ------------------------------------------------------------------------------
 EMAIL_PORT = 1025
-EMAIL_HOST = env('DJANGO_EMAIL_HOST', default='localhost')
+EMAIL_HOST = env("DJANGO_EMAIL_HOST", default="localhost")
 
 # # CACHING
 # # ------------------------------------------------------------------------------
 CACHES = {
     "default": {
-        "BACKEND" : "django_redis.cache.RedisCache",
+        "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://127.0.0.1:6379/1",
-        "OPTIONS" : {
-            "CLIENT_CLASS"     : "django_redis.client.DefaultClient",
-            "IGNORE_EXCEPTIONS": True,
-        }
+        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient", "IGNORE_EXCEPTIONS": True},
     }
 }
 
@@ -52,11 +47,10 @@ CACHES = {
 # TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 
-
 # region SILK
 # SILK
 # ------------------------------------------------------------------------------
-INSTALLED_APPS += ['silk']  # https://github.com/jazzband/django-silk
+INSTALLED_APPS += ["silk"]  # https://github.com/jazzband/django-silk
 
 MIDDLEWARE.insert(0, "silk.middleware.SilkyMiddleware")
 SILKY_AUTHENTICATION = True  # User must login

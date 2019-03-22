@@ -12,7 +12,7 @@ class Command(TemplateCommand):
     missing_args_message = "You must provide an application name."
 
     def handle(self, **options):
-        options['template'] = 'https://github.com/aspatari/django-rest-framework-app-tempalte/archive/master.zip'
+        options["template"] = "https://github.com/aspatari/django-rest-framework-app-tempalte/archive/master.zip"
         app_name = options.pop("name")
         top_dir = path.join(os.getcwd(), "apps", app_name)
         try:
@@ -23,4 +23,5 @@ class Command(TemplateCommand):
             raise CommandError(e)
 
         super().handle("app", app_name, top_dir, **options)
+
     # pm startapp events apps/events --template https://github.com/aspatari/django-rest-framework-app-tempalte/archive/master.zip
