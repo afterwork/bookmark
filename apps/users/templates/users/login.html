@@ -1,22 +1,36 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-<!-- {{ telegram_login_widget|safe }} --> {% autoescape off %}
-{{ telegram_login_widget }}{% endautoescape %}
+{% extends "base.html" %}
 
-{{publisher}}
-<script type="text/javascript">
-    function onTelegramAuth(user) {
-        alert('Logged in as ' + user.first_name + ' ' + user.last_name + '!');
-    }
-</script>
-</body>
-</html>
-
+{% block content %}
+  <div class="container">
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+      <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+              <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                    <p>If you are on our site first time, just click to Log In with Telegram</p>
+                  </div>
+                  <!-- {{ telegram_login_widget|safe }} -->
+                  {% autoescape off %}
+                    {{ telegram_login_widget }}{% endautoescape %}
+                  {{publisher}}
+                  <script type="text/javascript">
+                    function onTelegramAuth(user) {
+                      alert('Logged in as ' + user.first_name + ' ' + user.last_name + '!');
+                    }
+                  </script>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
