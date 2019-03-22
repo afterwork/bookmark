@@ -68,7 +68,7 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     'corsheaders',  # https://github.com/ottoyiu/django-cors-headers
-    
+    'django_telegram_login',  # https://github.com/dmytrostriletskyi/django-telegram-login
     'rest_framework',  # http://www.django-rest-framework.org/
     'drf_yasg',  # https://drf-yasg.readthedocs.io/
 ]
@@ -305,3 +305,6 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = 'users.User'
 APPEND_SLASH = False
+TELEGRAM_BOT_NAME = 'vmbeta001_bot'
+TELEGRAM_BOT_TOKEN = '661837852:AAHCxc3laCgBXXLp_EPyHyks-dM8bE5Kx4E'
+TELEGRAM_LOGIN_REDIRECT_URL = 'https://7a7311e2.ngrok.io/'
