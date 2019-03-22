@@ -24,44 +24,43 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
 schema_view = get_schema_view(
-     openapi.Info(
-         title="Bookmark",
-         default_version='v1',
-         description="Test description",
-         terms_of_service="https://www.google.com/policies/terms/",
-         contact=openapi.Contact(email="artemir0106@gmail.com"),
-         license=openapi.License(name="BSD License"),
-     ),
-     # validators=['flex', 'ssv'],
-     public=True,
-     permission_classes=(permissions.AllowAny,),
- )
+    openapi.Info(
+        title="Bookmark",
+        default_version="v1",
+        description="Test description",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="artemir0106@gmail.com"),
+        license=openapi.License(name="BSD License"),
+    ),
+    # validators=['flex', 'ssv'],
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
-                  path(settings.ADMIN_URL, admin.site.urls),
-                  url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-                  path('', include('apps.users.urls')),
-
-                  # url(r'^swagger(?P<format>.json|.yaml)$', schema_view.without_ui(cache_timeout=None),
-                  #     name='schema-json'),
-                  path('swagger/', schema_view.with_ui('swagger', cache_timeout=None), name='schema-swagger-ui'),
-                  # url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=None), name='schema-redoc'),
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path(settings.ADMIN_URL, admin.site.urls),
+    url(r"^api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path("", include("apps.users.urls")),
+    # url(r'^swagger(?P<format>.json|.yaml)$', schema_view.without_ui(cache_timeout=None),
+    #     name='schema-json'),
+    path("swagger/", schema_view.with_ui("swagger", cache_timeout=None), name="schema-swagger-ui"),
+    # url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=None), name='schema-redoc'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
     # these url in browser to see how these error pages look like.
     urlpatterns += [
-        url(r'^400/$', default_views.bad_request, kwargs={'exception': Exception('Bad Request!')}),
-        url(r'^403/$', default_views.permission_denied, kwargs={'exception': Exception('Permission Denied')}),
-        url(r'^404/$', default_views.page_not_found, kwargs={'exception': Exception('Page not Found')}),
-        url(r'^500/$', default_views.server_error),
+        url(r"^400/$", default_views.bad_request, kwargs={"exception": Exception("Bad Request!")}),
+        url(r"^403/$", default_views.permission_denied, kwargs={"exception": Exception("Permission Denied")}),
+        url(r"^404/$", default_views.page_not_found, kwargs={"exception": Exception("Page not Found")}),
+        url(r"^500/$", default_views.server_error),
     ]
 
-    if 'debug_toolbar' in settings.INSTALLED_APPS:
+    if "debug_toolbar" in settings.INSTALLED_APPS:
         import debug_toolbar
 
-        urlpatterns = [url(r'^__debug__/', include(debug_toolbar.urls))] + urlpatterns
+        urlpatterns = [url(r"^__debug__/", include(debug_toolbar.urls))] + urlpatterns
 
-    if 'silk' in settings.INSTALLED_APPS:
-        urlpatterns += [path('silk/', include('silk.urls', namespace='silk'))]
+    if "silk" in settings.INSTALLED_APPS:
+        urlpatterns += [path("silk/", include("silk.urls", namespace="silk"))]
