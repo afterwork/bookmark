@@ -123,7 +123,6 @@ FIXTURE_DIRS = (
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 # Uses django-environ to accept uri format
 # See: https://django-environ.readthedocs.io/en/latest/#supported-types
-print(env.str('DJANGO_DATABASE_PASSWORD'))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
