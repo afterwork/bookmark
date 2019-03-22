@@ -123,7 +123,6 @@ FIXTURE_DIRS = (
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 # Uses django-environ to accept uri format
 # See: https://django-environ.readthedocs.io/en/latest/#supported-types
-print(env.str('DJANGO_DATABASE_PASSWORD'))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -305,6 +304,6 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = 'users.User'
 APPEND_SLASH = False
-TELEGRAM_BOT_NAME = 'vmbeta001_bot'
-TELEGRAM_BOT_TOKEN = '661837852:AAHCxc3laCgBXXLp_EPyHyks-dM8bE5Kx4E'
-TELEGRAM_LOGIN_REDIRECT_URL = 'https://7a7311e2.ngrok.io/'
+TELEGRAM_BOT_NAME = env.str('TELEGRAM_BOT_NAME')
+TELEGRAM_BOT_TOKEN = env.str('TELEGRAM_BOT_TOKEN')
+TELEGRAM_LOGIN_REDIRECT_URL = env.str('TELEGRAM_LOGIN_REDIRECT_URL')

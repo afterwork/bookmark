@@ -40,11 +40,11 @@ schema_view = get_schema_view(
 urlpatterns = [
                   path(settings.ADMIN_URL, admin.site.urls),
                   url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-                  path('v1/', include('apps.users.urls')),
+                  path('', include('apps.users.urls')),
 
                   # url(r'^swagger(?P<format>.json|.yaml)$', schema_view.without_ui(cache_timeout=None),
                   #     name='schema-json'),
-                  path('', schema_view.with_ui('swagger', cache_timeout=None), name='schema-swagger-ui'),
+                  path('swagger/', schema_view.with_ui('swagger', cache_timeout=None), name='schema-swagger-ui'),
                   # url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=None), name='schema-redoc'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
