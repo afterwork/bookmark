@@ -11,4 +11,5 @@ urlpatterns = [
     path("users/login", TokenObtainSlidingView.as_view(), name="token_obtain"),
     path("users/token/refresh", TokenRefreshSlidingView.as_view(), name="token_refresh"),
     path("users/login/telegram", views.TelegramLoginView.as_view(), name="telegram_login"),
+    path("users/login/telegram/redirect", views.RegisterUser.as_view(), name="telegram_login"),
 ] + router.urls
