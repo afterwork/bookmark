@@ -9,28 +9,25 @@ from . import utils
 
 
 class UserManager(BaseUserManager):
-    def _create_user(self, username, password, **extra_fields):
+    def _create_user(self, username, **extra_fields):
         """
         Create and save a user with the given username, email, and password.
         """
         if not username:
             raise ValueError("The given username must be set")
-        if not password:
-            raise ValueError("The given password must be set")
         username = self.normalize_email(username)
         user = self.model(username=username, **extra_fields)
-        user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_user(self, username, password, **extra_fields):
+    def create_user(self, username, **extra_fields):
         """Create and return a `User` with an email, username and password."""
 
         extra_fields.setdefault("is_staff", False)
         extra_fields.setdefault("is_superuser", False)
-        return self._create_user(username, password, **extra_fields)
+        return self._create_user(username, **extra_fields)
 
-    def create_superuser(self, username, password, **extra_fields):
+    def create_superuser(self, username, **extra_fields):
         """
             Create and return a `User` with superuser powers.
 
@@ -45,7 +42,7 @@ class UserManager(BaseUserManager):
         if extra_fields.get("is_superuser") is not True:
             raise ValueError("Superuser must have is_superuser=True.")
 
-        return self._create_user(username, password, **extra_fields)
+        return self._create_user(username, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin, BaseModel):
@@ -58,7 +55,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     )
     first_name = models.CharField(_("first name"), max_length=30, blank=True)
     last_name = models.CharField(_("last name"), max_length=150, blank=True)
-
+    telegram_id = models.CharField(_("telegram id"), max_length=100)
     is_staff = models.BooleanField(
         _("staff status"), default=False, help_text=_("Designates whether the user can log into this admin site.")
     )
@@ -74,7 +71,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
         default=False,
         help_text=_("Designates that this user has all permissions without " "explicitly assigning them."),
     )
-
+    password = None
     EMAIL_FIELD = "username"
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = []
