@@ -12,7 +12,6 @@ from django.urls import reverse
 class DashHome(View):
     template_name = "dashboard/home.html"
     context = dict()
-    context["ra"] = "mmm"
 
     def get(self, request):
         user = request.user
