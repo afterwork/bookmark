@@ -56,6 +56,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     first_name = models.CharField(_("first name"), max_length=30, blank=True)
     last_name = models.CharField(_("last name"), max_length=150, blank=True)
     telegram_id = models.CharField(_("telegram id"), max_length=100)
+    photo_url = models.CharField(_("user photo"), max_length=150)
     is_staff = models.BooleanField(
         _("staff status"), default=False, help_text=_("Designates whether the user can log into this admin site.")
     )

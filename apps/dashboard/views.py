@@ -28,4 +28,5 @@ class DashHome(View):
         else:
             self.context["first_name"] = user.first_name
             self.context["last_name"] = user.last_name
+            self.context["photo_url"] = user.photo_url
         return render(request, "dashboard/home.html", self.context)
