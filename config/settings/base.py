@@ -74,7 +74,7 @@ THIRD_PARTY_APPS = [
 ]
 
 # Apps specific for this project go here.
-LOCAL_APPS = ["apps.common", "apps.users"]
+LOCAL_APPS = ["apps.common", "apps.users", "apps.dashboard"]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -285,3 +285,4 @@ APPEND_SLASH = False
 TELEGRAM_BOT_NAME = env.str("TELEGRAM_BOT_NAME")
 TELEGRAM_BOT_TOKEN = env.str("TELEGRAM_BOT_TOKEN")
 TELEGRAM_LOGIN_REDIRECT_URL = env.str("TELEGRAM_LOGIN_REDIRECT_URL")
+LOGIN_REDIRECT_URL = "/home"
