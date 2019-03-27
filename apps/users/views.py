@@ -5,10 +5,15 @@ from django_telegram_login.authentication import verify_telegram_authentication
 from django_telegram_login.errors import NotTelegramDataError, TelegramDataIsOutdatedError
 from django_telegram_login.widgets.constants import LARGE
 from django_telegram_login.widgets.generator import create_redirect_login_widget
+from telegram import Bot
 from rest_framework import viewsets
-
+from django.shortcuts import redirect
 from apps.common.views import CustomViewSetMixin
 from . import serializers
+from django.views import View
+from django.shortcuts import render
+from django.contrib.auth import logout
+from django.urls import reverse
 
 
 class TelegramLoginView(TemplateView):
@@ -22,43 +27,78 @@ class TelegramLoginView(TemplateView):
         return context
 
 
-class RegisterUser(TemplateView):
+class RegisterUser(View):
     template_name = "users/login_data.html"
+    context = dict()
+    result = dict()
+    redirect_url = "home"
+    photo_url = "https://www.lagersmit.com/wp-content/uploads/2014/09/default_avatar-2.gif"
 
-    def check_data(self, **kwargs):
-        context = super().get_context_data()
+    def get_photo_url(self, user_id):
+        bot = Bot(settings.TELEGRAM_BOT_TOKEN)
+        result = bot.getUserProfilePhotos(user_id)
+        photos = [i.get_file().file_path for i in result.photos[0]]
+        self.photo_url = photos[0]
+
+    def set_redirect_url(self, url):
+        self.redirect_url = redirect(url)
+
+    def set_error(self, message):
+        self.context["error"] = True
+        self.context["error_message"] = message
+
+    def check_data(self, request, **kwargs):
+
         if not self.request.GET.get("hash"):
-            context["error"] = True
-            context["message"] = "Handle the missing Telegram data in the response."
-            return context
-        try:
-            result = verify_telegram_authentication(
-                bot_token=settings.TELEGRAM_BOT_TOKEN, request_data=self.request.GET
-            )
-        except TelegramDataIsOutdatedError:
-            context["error"] = True
-            context["message"] = "Authentication was received more than a day ago."
-            return context
+            self.set_error("Handle the missing Telegram data in the response.")
+        else:
+            try:
+                self.result = verify_telegram_authentication(
+                    bot_token=settings.TELEGRAM_BOT_TOKEN, request_data=self.request.GET
+                )
+            except TelegramDataIsOutdatedError:
+                self.set_error("Authentication was received more than a day ago.")
 
-        except NotTelegramDataError:
-            context["error"] = True
-            context["message"] = "The data is not related to Telegram!"
-            return context
+            except NotTelegramDataError:
+                self.set_error("The data is not related to Telegram!")
+
+        if "error" in self.context and self.context["error"]:
+            return render(request, self.template_name, self.context)
 
         user_model = get_user_model()
-
         try:
-            user = user_model.objects.get(username=result["id"])
+            user = user_model.objects.get(username=self.result["id"])
         except user_model.DoesNotExist:
+            if self.result.get("photo_url"):
+                self.photo_url = self.result.get("photo_url")
+            else:
+                self.get_photo_url(self.result.get("id"))
             user = user_model.objects.create_user(
-                username=result.get("id"), first_name=result.get("first_name"), last_name=result.get("last_name")
+                username=self.result.get("id"),
+                first_name=self.result.get("first_name"),
+                last_name=self.result.get("last_name"),
+                photo_url=self.photo_url,
             )
-        login(request=self.request, user=user)
-        return context
 
-    def get_context_data(self, **kwargs):
-        context = self.check_data(**kwargs)
-        return context
+        login(request=self.request, user=user)
+        self.set_redirect_url(reverse("home"))
+        return self.redirect_url
+
+    def get(self, request, **kwargs):
+        response = self.check_data(request, **kwargs)
+        return response
+
+
+class Logout(View):
+    redirect_url = "home"
+
+    def set_redirect_url(self, url):
+        self.redirect_url = redirect(url)
+
+    def get(self, request):
+        logout(request)
+        self.set_redirect_url(reverse("telegram_login"))
+        return self.redirect_url
 
 
 class UserViewSet(CustomViewSetMixin, viewsets.ModelViewSet):
