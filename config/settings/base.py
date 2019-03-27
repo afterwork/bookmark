@@ -74,7 +74,7 @@ THIRD_PARTY_APPS = [
 ]
 
 # Apps specific for this project go here.
-LOCAL_APPS = ["apps.common", "apps.users", "apps.dashboard"]
+LOCAL_APPS = ["apps.common", "apps.users", "apps.dashboard.apps.DashboardConfig"]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
