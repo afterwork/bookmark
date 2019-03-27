@@ -9,13 +9,6 @@ from django.urls import reverse
 # Create your views here.
 
 
-class GreetingView(View):
-    greeting = "Good Day"
-
-    def get(self, request):
-        return HttpResponse(self.greeting)
-
-
 class DashHome(View):
     template_name = "dashboard/home.html"
     context = dict()
