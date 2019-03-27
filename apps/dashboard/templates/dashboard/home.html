@@ -14,12 +14,12 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
-
           <!-- Content Row -->
-
-
-
+      {% for book in book %}
+        <h1>{{ book.title }}</h1>
+        <h2>{{ book.content }}</h2>
+        <hr>
+      {% endfor %}
 
 
         </div>
