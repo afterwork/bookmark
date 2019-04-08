@@ -31,6 +31,7 @@ gunicorn = "*"
 django-modeltranslation = "*"
 django-ordered-model = "*"
 pillow = "*"
+python-telegram-bot = "*"
 
 [dev-packages]
 django-extensions = "*"
