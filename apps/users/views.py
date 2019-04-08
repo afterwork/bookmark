@@ -12,7 +12,6 @@ from apps.common.views import CustomViewSetMixin
 from . import serializers
 from django.views import View
 from django.shortcuts import render
-from django.contrib.auth import logout
 from django.urls import reverse
 from django.contrib.auth.views import LogoutView
 from django.urls import reverse_lazy
