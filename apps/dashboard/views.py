@@ -9,6 +9,35 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 
+class BookmarkFormView(View):
+    form = BookmarkForm()
+    context = {"form": form}
+
+    def post(self, request):
+        self.form = BookmarkForm(request.POST or None)
+        submission = self.form.save(commit=False)
+        submission.author = request.user
+        if self.form.is_valid():
+            self.form.save()
+            self.context = {"form": self.form}
+        return render(request, "dashboard/bookmark_thank_you.html", self.context)
+
+    def get(self, request):
+        return render(request, "dashboard/bookmark_create.html", self.context)
+
+
+def bookmark_create_view(request):
+
+    form = BookmarkForm(request.POST or None)
+    if form.is_valid():
+        submission = form.save(commit=False)
+        submission.author = request.user
+        form.save()
+
+    context = {"form": form}
+    return render(request, "dashboard/bookmark_create.html", context)
+
+
 class DashHome(LoginRequiredMixin, View):
     template_name = "dashboard/home.html"
     context = dict()
