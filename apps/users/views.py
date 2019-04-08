@@ -14,6 +14,8 @@ from django.views import View
 from django.shortcuts import render
 from django.contrib.auth import logout
 from django.urls import reverse
+from django.contrib.auth.views import LogoutView
+from django.urls import reverse_lazy
 
 
 class TelegramLoginView(TemplateView):
@@ -27,11 +29,7 @@ class TelegramLoginView(TemplateView):
         return context
 
 
-class RegisterUser(View):
-    template_name = "users/login_data.html"
-    context = dict()
-    result = dict()
-    redirect_url = "home"
+class TelegramUserPhoto:
     photo_url = "https://www.lagersmit.com/wp-content/uploads/2014/09/default_avatar-2.gif"
 
     def get_photo_url(self, user_id):
@@ -39,6 +37,13 @@ class RegisterUser(View):
         result = bot.getUserProfilePhotos(user_id)
         photos = [i.get_file().file_path for i in result.photos[0]]
         self.photo_url = photos[0]
+
+
+class RegisterUser(TelegramUserPhoto, View):
+    template_name = "users/login_data.html"
+    context = dict()
+    result = dict()
+    redirect_url = reverse_lazy("home")
 
     def set_redirect_url(self, url):
         self.redirect_url = redirect(url)
@@ -89,16 +94,8 @@ class RegisterUser(View):
         return response
 
 
-class Logout(View):
-    redirect_url = "home"
-
-    def set_redirect_url(self, url):
-        self.redirect_url = redirect(url)
-
-    def get(self, request):
-        logout(request)
-        self.set_redirect_url(reverse("telegram_login"))
-        return self.redirect_url
+class Logout(LogoutView):
+    logout_then_login = reverse_lazy("telegram_login")
 
 
 class UserViewSet(CustomViewSetMixin, viewsets.ModelViewSet):
