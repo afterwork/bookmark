@@ -5,25 +5,20 @@ from django.urls import reverse_lazy
 from .models import Bookmark
 from .forms import BookmarkForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView
 
 # Create your views here.
 
 
-class BookmarkFormView(View):
-    form = BookmarkForm()
-    context = {"form": form}
+class BookmarkFormView(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy("telegram_login")
+    template_name = "dashboard/bookmark_create.html"
+    form_class = BookmarkForm
+    success_url = reverse_lazy("home")
 
-    def post(self, request):
-        self.form = BookmarkForm(request.POST or None)
-        submission = self.form.save(commit=False)
-        submission.author = request.user
-        if self.form.is_valid():
-            self.form.save()
-            self.context = {"form": self.form}
-        return render(request, "dashboard/bookmark_thank_you.html", self.context)
-
-    def get(self, request):
-        return render(request, "dashboard/bookmark_create.html", self.context)
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
 class DashHome(LoginRequiredMixin, View):
