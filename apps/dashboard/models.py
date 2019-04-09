@@ -1,9 +1,10 @@
 from django.db import models
 from jsonfield import JSONField
-from django.views.generic import TemplateView
+from django.conf import settings
 
 
 class Bookmark(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     thumbnail = models.CharField(max_length=100)
     content = models.TextField()

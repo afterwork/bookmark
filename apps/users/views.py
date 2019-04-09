@@ -34,8 +34,9 @@ class TelegramUserPhoto:
     def get_photo_url(self, user_id):
         bot = Bot(settings.TELEGRAM_BOT_TOKEN)
         result = bot.getUserProfilePhotos(user_id)
-        photos = [i.get_file().file_path for i in result.photos[0]]
-        self.photo_url = photos[0]
+        if result["total_count"] > 0:
+            photos = [i.get_file().file_path for i in result.photos[0]]
+            self.photo_url = photos[0]
 
 
 class RegisterUser(TelegramUserPhoto, View):
