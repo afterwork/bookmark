@@ -26,18 +26,6 @@ class BookmarkFormView(View):
         return render(request, "dashboard/bookmark_create.html", self.context)
 
 
-def bookmark_create_view(request):
-
-    form = BookmarkForm(request.POST or None)
-    if form.is_valid():
-        submission = form.save(commit=False)
-        submission.author = request.user
-        form.save()
-
-    context = {"form": form}
-    return render(request, "dashboard/bookmark_create.html", context)
-
-
 class DashHome(LoginRequiredMixin, View):
     template_name = "dashboard/home.html"
     context = dict()
