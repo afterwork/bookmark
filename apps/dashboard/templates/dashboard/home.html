@@ -15,11 +15,28 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
           <!-- Content Row -->
-      {% for book in book %}
-        <h1>{{ book.title }}</h1>
-        <h2>{{ book.content }}</h2>
-        <hr>
-      {% endfor %}
+        <div class="col-lg-6">
+          {% for book in book %}
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 bookmark-title">
+                  <h6 class="m-0 font-weight-bold text-primary">{{ book.title }}</h6>
+                  <form action="{% url "delete_bookmark" book.id %}" method="post">
+                    {% csrf_token %}
+                    <a href="#" onclick="parentNode.submit();return false;" class="btn btn-danger btn-circle">
+                     <i class="fas fa-trash"></i>
+                    </a>
+                  </form>
+                </div>
+                <div class="card-body">
+                  <p>{{ book.content }}</p>
+                </div>
+              </div>
+          {% endfor %}
+
+
+
+            </div>
+
 
 
         </div>

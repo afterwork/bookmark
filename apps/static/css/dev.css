@@ -1,0 +1,16 @@
+.bookmark-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.pb-3, .py-3 {
+  padding-bottom: 0;
+  padding-top: 0;
+}
+.bookmark-title h6 {
+  text-transform: uppercase;
+}
+.bookmark-delete {
+  background: transparent;
+  border: 0;
+}

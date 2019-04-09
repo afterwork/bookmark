@@ -1,13 +1,19 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
 from django.views import View
 from django.urls import reverse_lazy
 from .models import Bookmark
 from .forms import BookmarkForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
+from django.views.generic.edit import DeleteView
 
 # Create your views here.
+
+
+class BookmarkDeleteView(LoginRequiredMixin, DeleteView):
+    model = Bookmark
+    context_object_name = "Bookmark"
+    success_url = reverse_lazy("home")
 
 
 class BookmarkFormView(LoginRequiredMixin, CreateView):
