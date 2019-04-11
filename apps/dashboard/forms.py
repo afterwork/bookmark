@@ -16,7 +16,6 @@ class BookmarkForm(forms.ModelForm):
         return title
 
     def clean_url(self):
-        url = self.cleaned_data.get("url", False)
-        validate_url = URLValidator()
-        validate_url(url)
+        url = self.cleaned_data.get("url", "")
+        URLValidator()(url)
         return url
