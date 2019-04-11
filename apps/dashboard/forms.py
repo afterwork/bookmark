@@ -14,8 +14,3 @@ class BookmarkForm(forms.ModelForm):
         if len(title.split()) < 2:
             raise forms.ValidationError("Title should contain at least 2 words")
         return title
-
-    def clean_url(self):
-        url = self.cleaned_data.get("url", "")
-        URLValidator()(url)
-        return url
