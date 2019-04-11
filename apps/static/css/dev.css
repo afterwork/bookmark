@@ -9,8 +9,18 @@
 }
 .bookmark-title h6 {
   text-transform: uppercase;
+  flex: 1;
 }
 .bookmark-delete {
   background: transparent;
   border: 0;
+}
+.bookmark_delete_form {
+  margin-right: 10px;
+  display: inline-flex;
+}
+.bookmark-thumbnail {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
 }
