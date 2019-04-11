@@ -11,6 +11,6 @@ class BookmarkForm(forms.ModelForm):
 
     def clean_title(self):
         title = self.cleaned_data.get("title", False)
-        if len(title.split()) < 2:
-            raise forms.ValidationError("Title should contain at least 2 words")
+        if len(title) < 2:
+            raise forms.ValidationError("Title should contain at least 2 letters")
         return title
