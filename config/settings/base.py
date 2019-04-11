@@ -71,6 +71,8 @@ THIRD_PARTY_APPS = [
     "django_telegram_login",  # https://github.com/dmytrostriletskyi/django-telegram-login
     "rest_framework",  # http://www.django-rest-framework.org/
     "drf_yasg",  # https://drf-yasg.readthedocs.io/
+    "crispy_forms",
+    "columns",
 ]
 
 # Apps specific for this project go here.
@@ -286,3 +288,4 @@ TELEGRAM_BOT_NAME = env.str("TELEGRAM_BOT_NAME")
 TELEGRAM_BOT_TOKEN = env.str("TELEGRAM_BOT_TOKEN")
 TELEGRAM_LOGIN_REDIRECT_URL = env.str("TELEGRAM_LOGIN_REDIRECT_URL")
 LOGIN_REDIRECT_URL = "/home"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
