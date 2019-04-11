@@ -34,7 +34,7 @@ class DashHome(LoginRequiredMixin, View):
 
     def get(self, request):
         user = request.user
-        book = Bookmark.objects.all().filter(author=request.user).order_by("-pub_date")
+        book = Bookmark.objects.filter(author=request.user).order_by("-pub_date")
         self.context["book"] = book
         self.context["first_name"] = user.first_name
         self.context["last_name"] = user.last_name
