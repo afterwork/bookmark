@@ -1,11 +1,11 @@
-from django.shortcuts import render
-from django.views import View
-from django.urls import reverse_lazy
-from .models import Bookmark
-from .forms import BookmarkForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView
-from django.views.generic.edit import DeleteView
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from .forms import BookmarkForm
+from .models import Bookmark
+
 
 # Create your views here.
 
@@ -25,6 +25,13 @@ class BookmarkFormView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+class BookmarkUpdateView(UpdateView):
+    model = Bookmark
+    template_name = "dashboard/bookmark_update.html"
+    fields = ["title", "thumbnail", "content", "url"]
+    success_url = reverse_lazy("home")
 
 
 class DashHome(LoginRequiredMixin, View):
