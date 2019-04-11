@@ -1,12 +1,11 @@
-from django.shortcuts import render
-from django.views import View
-from django.urls import reverse_lazy
-from .models import Bookmark
-from .forms import BookmarkForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView
-from django.views.generic.edit import DeleteView
-from django.views.generic.edit import UpdateView
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from .forms import BookmarkForm
+from .models import Bookmark
+
 
 # Create your views here.
 
