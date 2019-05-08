@@ -20,7 +20,12 @@ class BookmarkFormView(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy("telegram_login")
     template_name = "dashboard/bookmark_create.html"
     form_class = BookmarkForm
+
     success_url = reverse_lazy("home")
+
+    def post(self, request, *args, **kwargs):
+        a = 42
+        return super().post(request, *args, **kwargs)
 
     def form_valid(self, form):
         form.instance.author = self.request.user

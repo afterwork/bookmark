@@ -352,3 +352,9 @@ pip-selfcheck.json
 .terraform/
 terraform.tfstate*
 variables.tf
+
+apps/users/migrations/
+
+apps/media/pictures/
+
+apps/dashboard/migrations/
